@@ -15,7 +15,7 @@ class BigramModel(LanguageModel):
 
     def train(self, sentences):
         for s in sentences:
-            bs = s.copy()
+            bs = s.split()
             bs.append(self.STOP)
             bs.insert(0,self.START)
 

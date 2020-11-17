@@ -14,25 +14,6 @@ Unary = {}
 trainingtotals = {}
 trainingtotals["total"]=0
 
-def dirtydata(passage):
-    listofsent = []
-
-    passage=passage.replace('\n','')
-    passage=passage.replace('\t','')
-    passage=passage.replace('"','')
-    passage=passage.replace(',','.')
-    passage=passage.replace(':','.')
-    passage=passage.replace('Mr.','Mr')
-    passage=passage.replace('Mrs.','Mrs')
-    passage=passage.replace(';','')
-    passage=passage.replace('?','.')
-    passage=passage.replace('!','.')
-    passage=passage.replace('Ms.','Ms')
-    for sent in passage.split("."):
-        listofsent.append(sent.split())
-
-
-    return listofsent
 
 def train(passages):
     '''
@@ -40,26 +21,27 @@ def train(passages):
     passages: a List of passage pairs (author,text)
     Returns: void
     '''
+
     trainingtotals["total"]=len(passages)
-    for passage in passages:
-        if passage[0] not in Tsmooth:
-            Tsmooth[passage[0]]= SmoothedTrigram()
-            Bsmooth[passage[0]]= SmoothedBigram()
-            Unary[passage[0]]= UnigramModel()
-            trainingtotals[passage[0]]=1
+    for author in passages:
+        if passages[author] not in Tsmooth:
+            Tsmooth[author]= SmoothedTrigram()
+            Bsmooth[author]= SmoothedBigram()
+            Unary[author]= UnigramModel()
+            trainingtotals[author]=1
         else:
-            trainingtotals[passage[0]]+=1
+            trainingtotals[author]+=1
 
 
 
-        cleandata=dirtydata(passage[1])
-        Tsmooth[passage[0]].train(cleandata)
-        Bsmooth[passage[0]].train(cleandata)
-        Unary[passage[0]].train(cleandata)
+        Tsmooth[author].train(passages[author].split("\n"))
+        Bsmooth[author].train(passages[author].split("\n"))
+        Unary[author].train(passages[author].split("\n"))
+        
 
     pass
 
 if __name__ == "__main__":
     lo = lyricopener(["adele","al-green"],"archive/")
-    print(lo.gettext())
+    # print(lo.gettext())
     train(lo.gettext())

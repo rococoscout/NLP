@@ -19,7 +19,7 @@ class UnigramModel(LanguageModel):
 
     def train(self, sentences):
         for s in sentences:
-            s = s.copy()          # don't want to alter the original given sentences
+            s = s.split()         # don't want to alter the original given sentences
             s.append(self.STOP)
             for w in s:
                 if not w in self.wordcounts:

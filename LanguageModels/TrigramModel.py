@@ -16,7 +16,7 @@ class TrigramModel(LanguageModel):
 
     def train(self, sentences):
         for s in sentences:
-            ts = s.copy()
+            ts = s.split()
             ts.append(self.STOP)
             ts.insert(0,self.START)
             ts.insert(0,self.START)
