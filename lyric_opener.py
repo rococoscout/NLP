@@ -6,6 +6,8 @@
 # Contact Information: rococoscout@gmail.com
 # ********************************************************************************
 
+import re
+
 class lyricopener:
     def __init__(self,names,dir):
         # names: is a list of strings that correspond with the musician
@@ -14,6 +16,23 @@ class lyricopener:
         self.listoflyrics = {}
         for name in names:
             self.listoflyrics[name]=open(dir+name+".txt","r").read()
+            self.listoflyrics[name]=self.clean(self.listoflyrics[name])
+
+    def clean(self,passage):
+        passage=passage.replace('\t','')
+        passage=passage.replace('"','')
+        passage=passage.replace(',','')
+        passage=passage.replace(':','')
+        passage=passage.replace('Mr.','Mr')
+        passage=passage.replace('Mrs.','Mrs')
+        passage=passage.replace(';','')
+        passage=passage.replace('?','')
+        passage=passage.replace('!','')
+        passage=passage.replace('Ms.','Ms')
+        passage=re.sub('[[].*[]]','',passage)
+        return passage
+
+
 
     def gettext(self):
         return self.listoflyrics
