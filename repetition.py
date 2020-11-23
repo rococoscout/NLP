@@ -1,6 +1,6 @@
-# Title: Lyric Opener
+# Title: Repetition
 # Author: Holly Koerwer
-# Purpose: identify pattern training for repetition
+# Purpose: produce score for desired musician based on number of repeated lyric lines
 #
 # ********************************************************************************
 
