@@ -21,5 +21,5 @@ def repeatscore(passage):
     return repeatscore
 
 if __name__ == "__main__":
-    lyrics = lyricopener(["adele"],"archive/")
+    lyrics = lyricopener(["adele"])
     print(repeatscore(lyrics.gettext()["adele"]))
