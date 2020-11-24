@@ -22,6 +22,7 @@ class lyricopener:
     def clean(self,passage):
         passage=passage.replace('\t','')
         passage=passage.replace('"','')
+        passage=passage.replace('\'','')
         passage=passage.replace(',','')
         passage=passage.replace(':','')
         passage=passage.replace('Mr.','Mr')
@@ -29,8 +30,10 @@ class lyricopener:
         passage=passage.replace(';','')
         passage=passage.replace('?','')
         passage=passage.replace('!','')
+        passage=passage.replace('.','')
         passage=passage.replace('Ms.','Ms')
         passage=re.sub('[[].*[]]','',passage)
+        passage=re.sub('[().*[)]','',passage)
         return passage
 
 
