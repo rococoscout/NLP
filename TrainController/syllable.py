@@ -6,7 +6,6 @@
 # ********************************************************************************
 
 from lyric_opener import lyricopener
-from LanguageModels import *
 import syllables
 
 def syllablescore(passage):
@@ -27,12 +26,12 @@ def syllablescore(passage):
 
     final_average_byword = average_syllable_byword / len(line_total_syllable)
     final_average_byline = average_syllable_byline / len(line_total_syllable)
-    
+
     # final score output contains syllable average by line and syllable average by word
     return (final_average_byline, final_average_byword)
 
 
 
 if __name__ == "__main__":
-    lyrics = lyricopener(["adele"],"archive/")
+    lyrics = lyricopener(["adele"])
     print("line syllable average: ", syllablescore(lyrics.gettext()["adele"])[0], "word syllable average: ", syllablescore(lyrics.gettext()["adele"])[1])
