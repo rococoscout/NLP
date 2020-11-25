@@ -26,9 +26,9 @@ class TrainController():
         data = lyrics.gettext()
         for author in data:
             self.Repition_Score[author] = repeatscore(data[author])
-            self.Rhythm = rhymescore(data[author])
-            self.Syllable_Score = syllablescore(data[author])
-            self.Vocab = vocabscore(data[author])
+            self.Rhythm[author] = rhymescore(data[author])
+            self.Syllable_Score[author] = syllablescore(data[author])
+            self.Vocab[author] = vocabscore(data[author])
 
     #Returns a score on how reptitous the text is between 0,1
     def getrep(self,author):
