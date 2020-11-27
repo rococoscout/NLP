@@ -86,3 +86,7 @@ if __name__ == "__main__":
     # print("CHORUS")
     # print("\n".join(make_chorus(trainer.getrep(artstring), trainer.getsyl(artstring)[0])))
     print("\n".join(generate_song("words", "adele")))
+<<<<<<< HEAD
+=======
+
+>>>>>>> 36721f6aefb84622ecd25049e0b82b13bdfc789f
