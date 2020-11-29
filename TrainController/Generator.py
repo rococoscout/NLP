@@ -14,6 +14,7 @@ artstring = "adele"
 trainer = TrainController(artist)
 models = trainer.getvoc(artstring)
 vocab = models[0].wordcounts # Dictionary
+# models[1].train(paragrahp)
 
 
 def generate_song(phrase,artist):
@@ -86,7 +87,3 @@ if __name__ == "__main__":
     # print("CHORUS")
     # print("\n".join(make_chorus(trainer.getrep(artstring), trainer.getsyl(artstring)[0])))
     print("\n".join(generate_song("words", "adele")))
-<<<<<<< HEAD
-=======
-
->>>>>>> 36721f6aefb84622ecd25049e0b82b13bdfc789f
