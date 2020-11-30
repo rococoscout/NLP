@@ -5,9 +5,12 @@
 # Contact Information: rococoscout@gmail.com
 # ********************************************************************************
 import syllables
+import gensim.downloader as api
+from gensim.models.word2vec import Word2Vec
 from TrainController import TrainController
 from TrainController import lyricopener
 import random
+import time
 # user input determines author
 artist = ["adele"]
 artstring = "adele"
@@ -15,7 +18,8 @@ trainer = TrainController(artist)
 models = trainer.getvoc(artstring)
 vocab = models[0].wordcounts # Dictionary
 # models[1].train(paragrahp)
-
+wordVecList = []
+embeds = api.load("glove-wiki-gigaword-50") # 66MB
 
 def generate_song(phrase,artist):
     verse1 = make_verse(trainer.getrep(artstring), trainer.getsyl(artstring)[0])
@@ -79,11 +83,27 @@ def generate_line(syllable):
 
     return " ".join(line[1:])
 
+def generateVec(word):
+
+    vec = embeds[word]
+    sims = embeds.similar_by_vector(vec)
+    file = open('filler.txt', 'a')
+    for i in range(0, 10):
+        wordVecList.append(sims[i][0])
+        file.write(sims[i][0])
+    file.close()
+
+
+
 
 if __name__ == "__main__":
-    #print(generate_line(trainer.getsyl(artstring)[0]+random.randint(-2,2)))
-    # print("VERSE")
-    # print("\n".join(make_verse(trainer.getrep(artstring), trainer.getsyl(artstring)[0])))
-    # print("CHORUS")
-    # print("\n".join(make_chorus(trainer.getrep(artstring), trainer.getsyl(artstring)[0])))
-    print("\n".join(generate_song("words", "adele")))
+    print("Welcome to Jolly Records (where anyone is a musician)!")
+    print("...")
+    print("...")
+    print(" ")
+    line = input('Pick one word to be the theme of your song:  ')
+    generateVec(line)
+    print(wordVecList)
+    print(" ")
+    time.sleep(3)
+    # print("\n".join(generate_song("words", "adele")))
