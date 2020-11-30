@@ -49,17 +49,7 @@ def generate_song(phrase,artist):
     cprint(chorus, 'cyan', attrs=['bold'])
     cprint("[VERSE 3]", 'yellow')
     cprint(verse3, 'cyan', attrs=['bold'])
-    # song.append("[VERSE 1]")
-    # song.append(verse1)
-    # song.append("[CHORUS]")
-    # song.append(chorus)
-    # song.append("[VERSE 2]")
-    # song.append(verse2)
-    # song.append("[CHORUS]")
-    # song.append(chorus)
-    # song.append("[VERSE 3]")
-    # song.append(verse3)
-    # return song
+
 
 def make_verse(repetition, syllable):
     # each line generated will have a probability of repeating based off of repetition score
@@ -101,23 +91,24 @@ def generate_line(syllable):
 
     return " ".join(line[1:])
 
-def generateVec(word):
+def generateVec(word, threshold):
 
     vec = embeds[word]
     sims = embeds.similar_by_vector(vec)
     # file = open("filler.txt", 'w')
     for i in range(0, 10):
         wordVecList.append(sims[i][0])
-        fillerList.append(sims[i][0])
-        fillerList.append(sims[i][0])
-        fillerList.append(sims[i][0])
-    # for ii in range(0, len(fillerList)):
-    #     file.write(fillerList[ii])
-    #     file.write("\n")
-    # file.close()
-    models[1].train(fillerList)
-    userDict = models[1].wordcounts
+    oneList = []
+    for i in range(0, int((int(threshold) / 100) * 500)):
+        line =[]
+        for ii in range(0, 7):
+            line.append(fillerList[random.randint(0, len(fillerList)-1)])
+            line.append(wordVecList[random.randint(0,9)])
+        oneList.append(" ".join(line))
 
+    # print(oneList)
+    models[1].train(oneList)
+    # print(vocabscore"\n".join(oneList))
 
 # def CountFrequency(my_list):
 #
@@ -140,6 +131,7 @@ if __name__ == "__main__":
     print(". ")
     print(" ")
     line = input('Pick one word to be the theme of your song:  ')
+    threshold = input('How biased toward that theme do you want the song to be? (percentage 1-100): ')
     musician = input('Tell us a popular artist who you would like to sound like: ')
     time.sleep(1)
     print(". ")
@@ -148,6 +140,6 @@ if __name__ == "__main__":
     time.sleep(1)
     print(". ")
     print(" ")
-    generateVec(line)
+    generateVec(line, threshold)
     print(wordVecList)
     generate_song("words", "adele")
