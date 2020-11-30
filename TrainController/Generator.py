@@ -17,6 +17,7 @@ artstring = "adele"
 trainer = TrainController(artist)
 models = trainer.getvoc(artstring)
 vocab = models[0].wordcounts # Dictionary
+# print(vocab)
 # models[1].train(paragrahp)
 wordVecList = []
 embeds = api.load("glove-wiki-gigaword-50") # 66MB
@@ -87,10 +88,11 @@ def generateVec(word):
 
     vec = embeds[word]
     sims = embeds.similar_by_vector(vec)
-    file = open('filler.txt', 'a')
+    file = open("filler.txt", 'a')
     for i in range(0, 10):
         wordVecList.append(sims[i][0])
         file.write(sims[i][0])
+        file.write("\n")
     file.close()
 
 
