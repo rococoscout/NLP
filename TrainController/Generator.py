@@ -11,6 +11,7 @@ from TrainController import TrainController
 from TrainController import lyricopener
 import random
 import time
+from termcolor import colored, cprint
 # user input determines author
 artist = ["adele"]
 artstring = "adele"
@@ -18,9 +19,15 @@ trainer = TrainController(artist)
 models = trainer.getvoc(artstring)
 vocab = models[0].wordcounts # Dictionary
 # print(vocab)
-# models[1].train(paragrahp)
+# models[1].train(paragraph)
 wordVecList = []
+fillerList = ["the","of","to","and","a","in","is","it","you","that","he","was",
+"for","on","are","with","as","I","his","they","be","at","one","have","this","from",
+"or","had","by","not","word","but","what","some","we","can","out","other","were",
+"all","there","when","up","use","your","how","said","an","each","she"]
+
 embeds = api.load("glove-wiki-gigaword-50") # 66MB
+userDict = {}
 
 def generate_song(phrase,artist):
     verse1 = make_verse(trainer.getrep(artstring), trainer.getsyl(artstring)[0])
@@ -88,24 +95,49 @@ def generateVec(word):
 
     vec = embeds[word]
     sims = embeds.similar_by_vector(vec)
-    file = open("filler.txt", 'a')
+    # file = open("filler.txt", 'w')
     for i in range(0, 10):
         wordVecList.append(sims[i][0])
-        file.write(sims[i][0])
-        file.write("\n")
-    file.close()
+        fillerList.append(sims[i][0])
+        fillerList.append(sims[i][0])
+        fillerList.append(sims[i][0])
+    # for ii in range(0, len(fillerList)):
+    #     file.write(fillerList[ii])
+    #     file.write("\n")
+    # file.close()
+    models[1].train(fillerList)
+    userDict = models[1].wordcounts
 
 
+# def CountFrequency(my_list):
+#
+#     # Creating an empty dictionary
+#     freq = {}
+#     for items in my_list:
+#         freq[items] = my_list.count(items)
+#     return freq
 
 
 if __name__ == "__main__":
-    print("Welcome to Jolly Records (where anyone is a musician)!")
-    print("...")
-    print("...")
+    # text = colored("Welcome to Jolly Records (where anyone can be a musician)!", 'green', 'on_red', attrs=['reverse', 'blink'])
+    cprint("Welcome to Jolly Records (where anyone can be a musician)!", 'red', attrs=['bold'])
+    # print(text)
+    time.sleep(1)
+    print(". ")
+    time.sleep(1)
+    print(". ")
+    time.sleep(1)
+    print(". ")
     print(" ")
     line = input('Pick one word to be the theme of your song:  ')
+    musician = input('Tell us a popular artist who you would like to sound like: ')
+    time.sleep(1)
+    print(". ")
+    time.sleep(1)
+    print(". ")
+    time.sleep(1)
+    print(". ")
+    print(" ")
     generateVec(line)
     print(wordVecList)
-    print(" ")
-    time.sleep(3)
-    # print("\n".join(generate_song("words", "adele")))
+    print("\n".join(generate_song("words", "adele")))
