@@ -39,17 +39,27 @@ def generate_song(phrase,artist):
     verse2 = "\n".join(verse2)
     verse3 = "\n".join(verse3)
     chorus = "\n".join(chorus)
-    song.append("[VERSE 1]")
-    song.append(verse1)
-    song.append("[CHORUS]")
-    song.append(chorus)
-    song.append("[VERSE 2]")
-    song.append(verse2)
-    song.append("[CHORUS]")
-    song.append(chorus)
-    song.append("[VERSE 3]")
-    song.append(verse3)
-    return song
+    cprint("[VERSE 1]", 'yellow')
+    cprint(verse1, 'cyan', attrs=['bold'])
+    cprint("[CHORUS]", 'yellow')
+    cprint(chorus, 'cyan', attrs=['bold'])
+    cprint("[VERSE 2]", 'yellow')
+    cprint(verse2, 'cyan', attrs=['bold'])
+    cprint("[CHORUS]", 'yellow')
+    cprint(chorus, 'cyan', attrs=['bold'])
+    cprint("[VERSE 3]", 'yellow')
+    cprint(verse3, 'cyan', attrs=['bold'])
+    # song.append("[VERSE 1]")
+    # song.append(verse1)
+    # song.append("[CHORUS]")
+    # song.append(chorus)
+    # song.append("[VERSE 2]")
+    # song.append(verse2)
+    # song.append("[CHORUS]")
+    # song.append(chorus)
+    # song.append("[VERSE 3]")
+    # song.append(verse3)
+    # return song
 
 def make_verse(repetition, syllable):
     # each line generated will have a probability of repeating based off of repetition score
@@ -120,7 +130,7 @@ def generateVec(word):
 
 if __name__ == "__main__":
     # text = colored("Welcome to Jolly Records (where anyone can be a musician)!", 'green', 'on_red', attrs=['reverse', 'blink'])
-    cprint("Welcome to Jolly Records (where anyone can be a musician)!", 'red', attrs=['bold'])
+    cprint("Welcome to Jolly Records (where anyone can be a musician)!", 'yellow', attrs=['bold'])
     # print(text)
     time.sleep(1)
     print(". ")
@@ -140,4 +150,4 @@ if __name__ == "__main__":
     print(" ")
     generateVec(line)
     print(wordVecList)
-    print("\n".join(generate_song("words", "adele")))
+    generate_song("words", "adele")
