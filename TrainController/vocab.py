@@ -15,6 +15,7 @@ def vocabscore(passage):
     Tsmooth.train(passage.split("\n"))
     Bsmooth.train(passage.split("\n"))
     Unary.train(passage.split("\n"))
+    # print("passage: ", passage)
     return [Unary,Bsmooth,Tsmooth]
 
 
