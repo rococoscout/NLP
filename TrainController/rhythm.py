@@ -3,97 +3,85 @@
 # Purpose: identify meta data for rhythm
 #
 # Contact Information: rococoscout@gmail.com
+# Credit: Phyme
 # ********************************************************************************
 
 from lyric_opener import lyricopener
+from Phyme import Phyme
+ph = Phyme()
+def rhymeword(word1,word2):
+    try:
+        rhymelist=ph.get_perfect_rhymes(word1)
+    except:
+        return False
 
-def rhyme(word1,word2):
-    if word1 == word2:
-        return True
-    n = 0
-    if len(word1)>3 and len(word2)>3:
-        for i in range(1,5):
-            if word2[len(word2)-i]==word1[len(word1)-i]:
-                n = n+1
-        if n/4 >= .75:
-            print(n/4 )
-            return True
-    if len(word1)< len(word2):
-        temp = word1
-        word1=word2
-        word2 = temp
-
-    for i in range(1,len(word2)):
-        if word2[len(word2)-i]==word1[len(word1)-i]:
-            print(word2[len(word2)-i])
-            n = n+1
-
-        if n/len(word2) >= .60:
-            print( n/len(word2))
-            print(len(word2))
+    for syll in rhymelist:
+        if word2 in rhymelist[syll]:
             return True
 
     return False
 
+def toplisttomod(powerlist):
+    sorteddict = {}
+    total = 0
+    mod = 7
+    for item in powerlist:
+        if not item%mod in sorteddict.keys():
+            sorteddict[item%mod] = 1
+        else:
+            sorteddict[item%mod]+= 1
+
+        total += 1
+    for i in sorteddict:
+        sorteddict[i] = sorteddict[i]/total
+
+    return sorteddict
 
 def rhymescore(passage):
     initialDict = {}
     finalDict = {}
     lineon = 0
+    lastwords = list()
     for line in passage.split('\n'):
         listofwords = line.split()
-        lastword = listofwords[len(listofwords)-1]
+        lastwords.append(listofwords[len(listofwords)-1])
 
+    numbersused = list()
 
-        if len(lastword)<4:
-            if lastword in initialDict:
-                initialDict[lastword].append(lineon)
-            else:
-                initialDict[lastword] = []
-                initialDict[lastword].append(lineon)
+    for num in range(len(lastwords)):
+        if num in numbersused:
+            continue
+        finalDict[num] = list()
+        numbersused.append(num)
+        for num2 in range(len(lastwords)):
+            if num2 in numbersused:
+                continue
+
+            if rhymeword(lastwords[num],lastwords[num2]):
+                finalDict[num].append(num2)
+                numbersused.append(num2)
+    top1 = 0
+    top1list = list()
+
+    nonrhyme = 0
+    for i in finalDict:
+        if finalDict[i]:
+            if len(finalDict[i])>top1:
+                top1 = len(finalDict[i])
+                top1list = finalDict[i]
         else:
-            if lastword[len(lastword)-4:] in initialDict:
-                initialDict[lastword[len(lastword)-4:]].append(lineon)
-            else:
-                initialDict[lastword[len(lastword)-4:]] = []
-                initialDict[lastword[len(lastword)-4:]].append(lineon)
-
-
-        lineon += 1
-    # flag = True
-    # total = 0
-    # for end in initialDict:
-    #     total += len(initialDict[end])
-    #     for compared in finalDict:
-    #         flag = False
-    #         if compared == end:
-    #             finalDict[compared].append(initialDict[end])
-    #         elif len(end) == len(compared):
-    #             n = 0
-    #             for i in range(len(end)):
-    #                 if end[i] == compared[i]:
-    #                     n = 1 + n
-    #             if n/len(end) >= .5:
-    #                 finalDict[compared].append(initialDict[end])
-    #         else:
-    #             flag = True
-    #
-    #         if flag:
-    #             finalDict[end] = initialDict[end]
-    #
-    #     if flag:
-    #         finalDict[end] = initialDict[end]
-    #
-    # rhymed = 0
-    # for i in finalDict:
-    #     if len(i)>1:
-    #         rhymed += len(i)
+            nonrhyme +=1
 
 
 
-    return
+    rhymeprob = 1-nonrhyme/len(lastwords)
+
+
+    return toplisttomod(top1list),rhymeprob
+
+
 
 if __name__ == "__main__":
     lo = lyricopener(["adele","al-green"])
     print(rhymescore(lo.gettext()["al-green"]))
-    print(rhyme("harder","faster"))
+    print(rhymeword("ever","never"))
