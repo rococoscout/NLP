@@ -16,32 +16,28 @@ class TrainController():
 
     def __init__(self,listofauthors):
         #Dictionary Key are Authors
-        self.Repition_Score = {}
-        self.Rhythm = {}
-        self.Syllable_Score = {}
-        self.Vocab = {}
 
 
         lyrics = lyricopener(listofauthors)
         data = lyrics.gettext()
-        for author in data:
-            self.Repition_Score[author] = repeatscore(data[author])
-            self.Rhythm[author] = rhymescore(data[author])
-            self.Syllable_Score[author] = syllablescore(data[author])
-            self.Vocab[author] = vocabscore(data[author])
+
+        self.Repition_Score = repeatscore(data)
+        # self.Rhythm= rhymescore(data)
+        self.Syllable_Score = syllablescore(data)
+        self.Vocab = vocabscore(data)
 
     #Returns a score on how reptitous the text is between 0,1
-    def getrep(self,author):
-        return self.Repition_Score[author]
+    def getrep(self):
+        return self.Repition_Score
     #Returns dictionary of A,B,C... with list that repersent the line that correspond with the rhyme
-    def getrhy(self,author):
-        return self.Rhythm[author]
+    def getrhy(self):
+        return self.Rhythm
     #Returns a list; [0] is the line average and [1] is word average syllable
-    def getsyl(self,author):
-        return self.Syllable_Score[author]
+    def getsyl(self):
+        return self.Syllable_Score
     #Returns a list of LanguageModels; 0-Unigram 1-BigramSmooth 2-TrigramSmooth
-    def getvoc(self,author):
-        return self.Vocab[author]
+    def getvoc(self):
+        return self.Vocab
 
 
 

@@ -9,15 +9,15 @@
 import re
 
 class lyricopener:
-    def __init__(self,names):
+    def __init__(self,name):
         # names: is a list of strings that correspond with the musician
         # dir: is the file directory path of the data from this file
         # self.listoflyrics: is a list of text
         dir = "../archive/"
-        self.listoflyrics = {}
-        for name in names:
-            self.listoflyrics[name]=open(dir+name+".txt","r").read()
-            self.listoflyrics[name]=self.clean(self.listoflyrics[name])
+        self.lyrics = {}
+
+        self.lyrics=open(dir+name+".txt","r").read()
+        self.lyrics=self.clean(self.lyrics)
 
     def clean(self,passage):
         passage=passage.replace('\t','')
@@ -34,12 +34,13 @@ class lyricopener:
         passage=passage.replace('Ms.','Ms')
         passage=re.sub('[[].*[]]','',passage)
         passage=re.sub('[().*[)]','',passage)
+
         return passage
 
 
 
     def gettext(self):
-        return self.listoflyrics
+        return self.lyrics
 
 if __name__ == "__main__":
     lo = lyricopener(["adele","al-green"])
