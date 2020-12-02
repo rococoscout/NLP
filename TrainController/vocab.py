@@ -5,22 +5,26 @@
 # Contact Information: rococoscout@gmail.com
 # ********************************************************************************
 
-from lyric_opener import lyricopener
-from LanguageModels import *
+from .lyric_opener import Lyricopener
+from .LanguageModels import *
 
-def vocabscore(passage):
-    Tsmooth = SmoothedTrigram()
-    Bsmooth = SmoothedBigram()
-    Unary = UnigramModel()
-    Tsmooth.train(passage.split("\n"))
-    Bsmooth.train(passage.split("\n"))
-    Unary.train(passage.split("\n"))
-    # print("passage: ", passage)
-    return [Unary,Bsmooth,Tsmooth]
+class Vocab():
+    def __init__(self,passage):
+        self.passage = passage
+
+    def vocabscore(self):
+        Tsmooth = SmoothedTrigram()
+        Bsmooth = SmoothedBigram()
+        Unary = UnigramModel()
+        Tsmooth.train(self.passage.split("\n"))
+        Bsmooth.train(self.passage.split("\n"))
+        Unary.train(self.passage.split("\n"))
+        # print("passage: ", passage)
+        return [Unary,Bsmooth,Tsmooth]
 
 
 
 if __name__ == "__main__":
-    lo = lyricopener(["adele","al-green"])
+    lo = Lyricopener("adele")
     # print(lo.gettext())
-    vocabscore(lo.gettext()["adele"])
+    print(Vocab(lo.gettext()).vocabscore())

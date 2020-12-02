@@ -8,7 +8,6 @@ import syllables
 import gensim.downloader as api
 from gensim.models.word2vec import Word2Vec
 from TrainController import TrainController
-from TrainController import lyricopener
 import random
 import time
 from termcolor import colored, cprint
@@ -116,13 +115,12 @@ class Generator():
         self.models[1].train(oneList)
         # print(vocabscore"\n".join(oneList))
 
-    # def CountFrequency(my_list):
+    # Function: Post Production
+    # Input: Passage of length up to 10 lines
+    # Output: Same Passage but reranged to fit the artist style
     #
-    #     # Creating an empty dictionary
-    #     freq = {}
-    #     for items in my_list:
-    #         freq[items] = my_list.count(items)
-    #     return freq
+    def postproduction():
+            return
 
 
 if __name__ == "__main__":

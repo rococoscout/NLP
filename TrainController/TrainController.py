@@ -6,25 +6,25 @@
 # Contact Information: rococoscout@gmail.com
 # ********************************************************************************
 
-from lyric_opener import lyricopener
-from repetition import repeatscore
-from rhythm import rhymescore
-from vocab import vocabscore
-from syllable import syllablescore
+from .lyric_opener import Lyricopener
+from .repetition import Repetition
+from .vocab import Vocab
+from .rhythm import Rhythm
+from .syllable import Syllable
 
 class TrainController():
 
-    def __init__(self,listofauthors):
+    def __init__(self,author):
         #Dictionary Key are Authors
 
 
-        lyrics = lyricopener(listofauthors)
+        lyrics = Lyricopener(author)
         data = lyrics.gettext()
 
-        self.Repition_Score = repeatscore(data)
+        self.Repition_Score = Repetition(data).repeatscore()
         # self.Rhythm= rhymescore(data)
-        self.Syllable_Score = syllablescore(data)
-        self.Vocab = vocabscore(data)
+        self.Syllable_Score = Syllable(data).syllablescore()
+        self.Vocab = Vocab(data).vocabscore()
 
     #Returns a score on how reptitous the text is between 0,1
     def getrep(self):
@@ -43,5 +43,5 @@ class TrainController():
 
 
 if __name__ == "__main__":
-    trainer = TrainController(["adele"])
-    print(trainer.getrep("adele"))
+    trainer = TrainController("adele")
+    print(trainer.getrep())

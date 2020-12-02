@@ -4,8 +4,11 @@
 #
 # ********************************************************************************
 
-from lyric_opener import lyricopener
+from .lyric_opener import Lyricopener
 from LanguageModels import *
+class Repetition():
+    def __init__(self,passage):
+        self.passage = passage
 
 def repeatscore(passage):
     linelist = [] # list of total training lines for that musician
@@ -38,5 +41,5 @@ def repeatscore(passage):
     return repeatscore
 
 if __name__ == "__main__":
-    lyrics = lyricopener("adele")
+    lyrics = Lyricopener("adele")
     print(repeatscore(lyrics.gettext()))
