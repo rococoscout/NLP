@@ -21,14 +21,17 @@ class TrainController():
         lyrics = Lyricopener(author)
         data = lyrics.gettext()
 
-        self.Repition_Score = Repetition(data).repeatscore()
+        self.Repition = Repetition(data)
         # self.Rhythm= rhymescore(data)
         self.Syllable_Score = Syllable(data).syllablescore()
         self.Vocab = Vocab(data).vocabscore()
 
     #Returns a score on how reptitous the text is between 0,1
     def getrep(self):
-        return self.Repition_Score
+        return self.Repition.getscore()
+    def getrepstruct(self):
+        return self.Repition.getstruct()
+
     #Returns dictionary of A,B,C... with list that repersent the line that correspond with the rhyme
     def getrhy(self):
         return self.Rhythm
