@@ -8,12 +8,12 @@
 
 import re
 
-class lyricopener:
+class Lyricopener():
     def __init__(self,name):
         # names: is a list of strings that correspond with the musician
         # dir: is the file directory path of the data from this file
         # self.listoflyrics: is a list of text
-        dir = "../archive/"
+        dir = "./archive/"
         self.lyrics = {}
 
         self.lyrics=open(dir+name+".txt","r").read()
@@ -43,5 +43,5 @@ class lyricopener:
         return self.lyrics
 
 if __name__ == "__main__":
-    lo = lyricopener(["adele","al-green"])
+    lo = Lyricopener("adele")
     print(lo.gettext())
