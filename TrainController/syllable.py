@@ -31,6 +31,9 @@ class Syllable():
 
         # final score output contains syllable average by line and syllable average by word
         return (final_average_byline, final_average_byword)
+    #counts the number of syllables of a word
+    def syllablecount(self,word):
+        return syllables.estimate(word)
 
 
 

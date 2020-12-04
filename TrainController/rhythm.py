@@ -13,6 +13,19 @@ class Rhythm():
     def __init__(self,passage):
         self.ph = Phyme()
         self.passage = passage
+        self.rhymescore()
+        self.rhymeprob
+        self.rhymestruct
+
+    def getprob(self):
+        return self.rhymeprob
+
+    def getstruct(self):
+        return self.rhymestruct
+
+    def get_otherwords(self,word):
+        return self.ph.get_perfect_rhymes(word)
+
     def rhymeword(self,word1,word2):
         try:
             rhymelist=self.ph.get_perfect_rhymes(word1)
@@ -48,7 +61,9 @@ class Rhythm():
         lastwords = list()
         for line in self.passage.split('\n'):
             listofwords = line.split()
-            lastwords.append(listofwords[len(listofwords)-1])
+            if listofwords:
+                # print(len(listofwords)-1)
+                lastwords.append(listofwords[len(listofwords)-1])
 
         numbersused = list()
 
@@ -78,10 +93,10 @@ class Rhythm():
 
 
 
-        rhymeprob = 1-nonrhyme/len(lastwords)
+        self.rhymeprob = 1-nonrhyme/len(lastwords)
 
+        self.rhymestruct=self.toplisttomod(top1list)
 
-        return self.toplisttomod(top1list),rhymeprob
 
 
 

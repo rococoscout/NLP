@@ -37,12 +37,9 @@ class Repetition():
             else:
                 linedict[linecounter%mod] +=1
             linecounter += 1
-
-        print(linedict)
         for line in linedict:
             linedict[line] = linedict[line]/(len(linelist)-len(uniquelines))
 
-        print(linedict)
         self.linedict = linedict
         # calculate a repeat ratio for each musician text
         # this is the total unique line out of the total lyric lines
